@@ -17,7 +17,7 @@ public class Spaceship : MonoBehaviour
     float nextRafaga = 0;
     bool cambiarBala = true;
 
-    public bool gamePaused = false;
+
 
 
     // Start is called before the first frame update
@@ -42,19 +42,15 @@ public class Spaceship : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!gamePaused)
-        {
-            MoverNave();
-            if (cambiarBala)
-                Disparar();
-            else
-                DispararRafaga();
+        MoverNave();
+        if (cambiarBala)
+            Disparar();
+        else
+            DispararRafaga();
 
 
-            if (Input.GetKeyDown(KeyCode.Z))
-                cambiarBala = cambiarBala ? false : true;
-        }
-        
+        if (Input.GetKeyDown(KeyCode.Z))
+            cambiarBala = cambiarBala ? false : true;
 
     }
 

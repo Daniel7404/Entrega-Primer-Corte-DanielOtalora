@@ -3,7 +3,10 @@ guid: a5bff71b2dd11411a9bf3d00ed3a426e
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bala: {fileID: 5935567074204406622, guid: e2cef46308f9b44ccaf3d9e14f97782e, type: 3}
+  - balaRafaga: {fileID: 5935567074204406622, guid: ee936ef7cfeac42a98d98fe8e2df23c6, type: 3}
+  - disparador: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

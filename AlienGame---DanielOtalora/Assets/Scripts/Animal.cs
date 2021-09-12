@@ -7,9 +7,13 @@ public class Animal : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] bool movingRight;
     [SerializeField] GameManager gm;
+    [SerializeField] int vida;
 
     float minX, maxX;
-    int puntosDeVida = 5;
+    float crono = 0;
+    float tiempo = 0;
+    int contUsos = 3;
+    float tiempoLento;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +28,31 @@ public class Animal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(movingRight)
+
+        if (Input.GetKey(KeyCode.R) && Time.time > tiempoLento)
+        {
+            tiempoLento = Time.timeScale + crono;
+            contUsos--;
+
+            if (contUsos == 0)
+            {
+                tiempo = Time.unscaledTime;
+                Time.timeScale = 0.5f;
+            }
+        }
+
+        if (tiempo != 0)
+        {
+
+            if (Time.unscaledTime - tiempo >= 3)
+            {
+                Time.timeScale = 1;
+            }
+
+        }
+
+
+        if (movingRight)
         {
             Vector2 movimiento = new Vector2(speed * Time.deltaTime, 0);
             transform.Translate(movimiento);
@@ -53,8 +81,23 @@ public class Animal : MonoBehaviour
         
         if(collision.gameObject.CompareTag("Disparo") )
         {
-            gm.ReducirNumEnemigos();
-            Destroy(this.gameObject);
+            //1. Encontrar el objeto llamado "GameManager"
+            //2. Encontrar el componente de ese objeto de tipo "GameManager"
+            //3. Llamar la función CaptureAnimal()
+            
+
+            vida--;
+
+            if(vida <= 0)
+            {
+                GameObject gm = GameObject.Find("GameManager");
+                GameManager script = gm.GetComponent<GameManager>();
+                script.CaptureAnimal();
+                Destroy(this.gameObject);
+                
+                
+            }
+            
         }
     }
 

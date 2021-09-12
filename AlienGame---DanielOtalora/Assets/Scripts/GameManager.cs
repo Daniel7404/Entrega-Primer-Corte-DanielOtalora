@@ -5,61 +5,76 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    bool gamePaused = false;
-    bool gameOver = false;
     [SerializeField] Spaceship player;
-    [SerializeField] GameObject pauseUI;
-    [SerializeField] GameObject gameOverUI;
-    [SerializeField] int numEnemies;
+    [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject gameOverMenu;
+    [SerializeField] int numAnimals;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-        pauseUI.SetActive(false);
-        gameOverUI.SetActive(false);
-
+        pauseMenu.SetActive(false);
+        gameOverMenu.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P) && gameOver == false)
-            PauseGame();
-
-        
+        PauseGame();
     }
 
     public void StartGame()
     {
         SceneManager.LoadScene(1);
+    }
+
+    public void nivel2()
+    {
+        SceneManager.LoadScene(2);
         Time.timeScale = 1;
+    }
+
+    public void nivel3()
+    {
+        SceneManager.LoadScene(3);
+        Time.timeScale = 1;
+    }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 
     void PauseGame()
     {
-        gamePaused = gamePaused ? false : true;
-
-        player.gamePaused = gamePaused;
-        
-        pauseUI.SetActive(gamePaused);
-
-        Time.timeScale = gamePaused ? 0 : 1;
-    }
-
-    public void ReducirNumEnemigos()
-    {
-        numEnemies = numEnemies - 1;
-        if(numEnemies < 1)
+        //pausar y "despausar" el juego
+        if(Input.GetKeyDown(KeyCode.P))
         {
-            Ganar();
+            if(Time.timeScale == 1)
+            {
+                Time.timeScale = 0;
+                pauseMenu.SetActive(true);
+            }
+            else
+            {
+                Time.timeScale = 1;
+                pauseMenu.SetActive(false);
+            }
         }
+        //setActive
+        //variable serializada
     }
 
-    void Ganar()
+    public void CaptureAnimal()
     {
-        gameOver = true;
-        Time.timeScale = 0;
-        player.gamePaused = true;
-        gameOverUI.SetActive(true);
+        numAnimals--;
+        if(numAnimals < 1)
+        {
+            //ganamos!
+            Time.timeScale = 0;
+            gameOverMenu.SetActive(true);
+        }
     }
 }
